@@ -11,6 +11,33 @@ define(function() {
       //
       // otherwise the function should return the number, or false if no number
       // was provided or the value provided is not a number
+      var isNumber = typeof num === 'number',
+          results = {};
+
+      if(isNumber) {
+          var by3 = num%3,
+              by5 = num%5;
+
+          if (by3 !== 0 && by5 !== 0) {
+            return num;
+          }
+
+          if (by3 + by5 === 0) {
+            return 'fizzbuzz';
+          }
+
+          if (by3 === 0)  {
+            return 'fizz';
+          }
+
+          if (by5 === 0) {
+            return 'buzz';
+          }
+
+      } else {
+        return false;
+      }
+
     }
   };
 });
