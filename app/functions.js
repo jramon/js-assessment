@@ -59,12 +59,27 @@ define(function() {
     },
 
     curryIt : function(fn) {
-        var firstArgs = [].slice.call(arguments, 1);
+        var self = this;
 
-        return function () {
-            return fn.apply(this, firstArgs.concat([].slice.call(arguments)));
-        }
+        function curry(fn, length) {
+            var fnArgSize = length || fn.length;
 
+            return function () {
+                if (arguments.length < fnArgSize) {
+                    //there are still arguments to apply
+                    var combined = [fn].concat([].slice.call(arguments));
+
+                    return fnArgSize - arguments.length > 0
+                        ? curry(self.partialUsingArguments.apply(fn, combined), fnArgSize - arguments.length) 
+                        : self.partialUsingArguments(this, combined)
+                } else {
+                    //al arguments have been applied, nothing more to partial apply...
+                    return fn.apply(this, arguments); //the real function apply 
+                }
+            }
+        };
+        
+        return curry(fn)();
     }
   };
 });

@@ -41,7 +41,7 @@ define(function() {
 
     truncate : function(arr) {
       //pop removes the last element of the array
-        arr.pop(arr, arr.length - 1);
+        arr.pop(arr);
 
         return arr;
     },
